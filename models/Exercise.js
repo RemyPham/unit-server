@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const moment = require("moment")
 
 const exerciseSchema = new Schema({
     user: {
