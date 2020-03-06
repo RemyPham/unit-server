@@ -5,20 +5,20 @@ require("./config/passport");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-const mongoose = require("mongoose");
-const MongoStore = require("connect-mongo")(session);
-const cookieParser = require("cookie-parser");
+// const mongoose = require("mongoose");
+// const MongoStore = require("connect-mongo")(session);
+// const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const path = require("path");
+// const path = require("path");
 const _DEVMODE = true
-// const passport = require("passport");
+
 
 // ------------------------------------------
 // SERVER CONFIG
 // ------------------------------------------
 const app = express();
 app.use(express.json());
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(
     session({
       cookie: { secure: false, maxAge: 4 * 60 * 60 * 1000 }, // 4 hours
@@ -40,7 +40,7 @@ app.use(cors(corsOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
 if (_DEVMODE === true) {
   app.use(function devMode(req, res, next) {
