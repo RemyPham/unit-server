@@ -7,7 +7,7 @@ const exerciseModel = require("../models/Exercise")
 
 
 router.get("/", (req, res) => {
-    console.log(req)
+    // console.log(req)
     exerciseModel
     .find({"user": ObjectId(req.user._id)})
     .populate("user")

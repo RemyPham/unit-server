@@ -42,6 +42,9 @@ router.post("/signup", (req, res, next) => {
 
 router.post("/signin", (req, res, next) => {
   passport.authenticate("local", (err, user, failureDetails) => {
+
+    console.log(err, user, failureDetails);
+    
     if (err || !user) return res.status(403).json("invalid user infos"); // 403 : Forbidden
 
     /**
@@ -49,6 +52,8 @@ router.post("/signin", (req, res, next) => {
      * check the doc here : http://www.passportjs.org/docs/login/
      */
     req.logIn(user, function(err) {
+      
+ 
       /* doc says: When the login operation completes, user will be assigned to req.user. */
       if (err) {
         return res.json({ message: "Something went wrong logging in" });
@@ -60,15 +65,16 @@ router.post("/signin", (req, res, next) => {
       // let's choose the exposed user below
       const { _id, username, email } = user;
       // and only expose non-sensitive inofrmations to the client's state
-      next(
-        res.status(200).json({
-          currentUser: {
-            _id,
-            username,
-            email,
-          }
-        })
-      );
+      res.status(200).json({
+        currentUser: {
+          _id,
+          username,
+          email,
+        }
+      })
+
+      next();
+
     });
   })(req, res, next); // IIFE (module) pattern here (see passport documentation)
 });
@@ -80,9 +86,11 @@ router.post("/signout", (req, res, next) => {
 });
 
 router.use("/is-loggedin", (req, res, next) => {
-  if (req.isAuthenticated()) {
+  
+   if (req.isAuthenticated()) {
+     
     // method provided by passport
-    const { _id, username, email } = req.user;
+    const { _id, username, favorites, email, avatar, role } = req.user;
     return res.status(200).json({
       currentUser: {
         _id,
@@ -92,13 +100,6 @@ router.use("/is-loggedin", (req, res, next) => {
     });
   }
   res.status(403).json("Unauthorized");
-  // return res.status(200).json({
-  //   currentUser: {
-  //     _id : "5e57e03e4e80cd07242d18fb",
-  //     username : "Remy",
-  //     email : "remy@unit.com"
-  //   }
-  // });
 });
 
 

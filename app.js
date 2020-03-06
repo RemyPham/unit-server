@@ -10,7 +10,7 @@ const passport = require("passport");
 // const cookieParser = require("cookie-parser");
 const cors = require("cors");
 // const path = require("path");
-const _DEVMODE = true
+const _DEVMODE = false
 
 
 // ------------------------------------------
@@ -57,10 +57,9 @@ if (_DEVMODE === true) {
 // BASE BACKEND ROUTE
 // ------------------------------------------
 
-// app.get("/", (req, res) => {
-//     res.send("backend server is running");
-// });
-
+app.get("/", (req, res) => {
+  res.send("backend server is running");
+});
 
 //------------------------------------------
 // SPLITED ROUTING

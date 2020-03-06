@@ -17,7 +17,7 @@ router.post("/", (req,res) => {
 })
 
 router.get("/", (req,res) => {
-    
+    console.log(req.session)
     exerciseModel
     .find({"user": ObjectId(req.user._id)})
     .then(listOfExo => {
